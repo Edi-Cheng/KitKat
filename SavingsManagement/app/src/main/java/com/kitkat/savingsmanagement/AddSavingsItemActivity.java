@@ -28,8 +28,10 @@ public class AddSavingsItemActivity extends AppCompatActivity implements DatePic
         startDateEdit = (EditText)findViewById(R.id.edit_start_date);
         endDateEdit = (EditText)findViewById(R.id.edit_end_date);
 
-        startDateEdit.setOnClickListener(showDatePicker);
-        endDateEdit.setOnClickListener(showDatePicker);
+//        startDateEdit.setOnClickListener(showDatePicker);
+//        endDateEdit.setOnClickListener(showDatePicker);
+        startDateEdit.setOnFocusChangeListener(focusChangeListener);
+        endDateEdit.setOnFocusChangeListener(focusChangeListener);
 
         Button saveBtn = (Button) findViewById(R.id.btn_save);
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -44,19 +46,35 @@ public class AddSavingsItemActivity extends AppCompatActivity implements DatePic
     private final View.OnClickListener showDatePicker = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Calendar c = Calendar.getInstance();
-            int startYear = c.get(Calendar.YEAR);
-            int startMonth = c.get(Calendar.MONTH);
-            int startDay = c.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(
-                    AddSavingsItemActivity.this,
-                    AddSavingsItemActivity.this,
-                    startYear, startMonth, startDay);
-
-            datePickerDialog.show();
+            showDatePicker();
         }
     };
+
+    private final View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (hasFocus) {
+                int vId = v.getId();
+                if (vId == startDateEdit.getId() || vId == endDateEdit.getId() ) {
+                    showDatePicker();
+                }
+            }
+        }
+    };
+
+    private void showDatePicker() {
+        Calendar c = Calendar.getInstance();
+        int startYear = c.get(Calendar.YEAR);
+        int startMonth = c.get(Calendar.MONTH);
+        int startDay = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                AddSavingsItemActivity.this,
+                AddSavingsItemActivity.this,
+                startYear, startMonth, startDay);
+
+        datePickerDialog.show();
+    }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
