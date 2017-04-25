@@ -33,6 +33,14 @@ public class DashboardActivity extends AppCompatActivity
             }
         });
 
+        FloatingActionButton listBtn = (FloatingActionButton) findViewById(R.id.list);
+        listBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startListActivity();
+            }
+        });
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -105,6 +113,11 @@ public class DashboardActivity extends AppCompatActivity
      */
     private void startAddSavingsItemScrren() {
         Intent intent = new Intent(this, AddSavingsItemActivity.class);
+        startActivity(intent);
+    }
+
+    private void startListActivity() {
+        Intent intent = new Intent(this, ListActivity.class);
         startActivity(intent);
     }
 }
