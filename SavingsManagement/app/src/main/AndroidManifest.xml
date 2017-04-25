@@ -25,13 +25,18 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".activities.ListActivity" />
+
         <provider
             android:name=".data.SavingsContentProvider"
             android:authorities="com.kitkat.savingsmanager.provider"
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".activities.ListActivity"></activity>
+        <service
+            android:name=".services.DataFetchingService"
+            android:enabled="true"
+            android:exported="false"></service>
     </application>
 
 </manifest>
