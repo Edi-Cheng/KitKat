@@ -82,16 +82,22 @@ public class SavingsContentProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
 
-        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-        queryBuilder.setTables(TABLE_NAME);
+//        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+//        queryBuilder.setTables(TABLE_NAME);
+//
+//        queryBuilder.appendWhere(SavingsItemEntry._ID + "=" + uri.getLastPathSegment());
+//        mDatabase = mOpenHelper.getWritableDatabase();
+//        Cursor cursor = queryBuilder.query(mDatabase, projection, selection, selectionArgs, null, null, sortOrder);
+//
+//        // make sure that potential listeners are getting notified.
+//        cursor.setNotificationUri(getContext().getContentResolver(), uri);
+//        return cursor;
 
-        queryBuilder.appendWhere(SavingsItemEntry._ID + "=" + uri.getLastPathSegment());
-        mDatabase = mOpenHelper.getWritableDatabase();
-        Cursor cursor = queryBuilder.query(mDatabase, projection, selection, selectionArgs, null, null, sortOrder);
 
-        // make sure that potential listeners are getting notified.
-        cursor.setNotificationUri(getContext().getContentResolver(), uri);
-        return cursor;
+        mDatabase =  mOpenHelper.getReadableDatabase();
+        Cursor cursor = mDatabase.query(TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+
+        return cursor!=null?cursor:null;
 
     }
 
